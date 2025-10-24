@@ -52,22 +52,3 @@ npm run test:unit
 ```sh
 npm run lint
 ```
-
-## Stores
-
-Pinia stores live in `src/stores/`.
-
-- `productStore.ts` — holds product list, getters and actions to add/set products.
-- `cartStore.ts` — manages cart items, quantities, and totals.
-
-Quick example (in a component):
-
-```ts
-import { useProductStore } from '@/stores/productStore'
-import { useCartStore } from '@/stores/cartStore'
-
-const productStore = useProductStore()
-const cartStore = useCartStore()
-
-cartStore.addToCart(productStore.allProducts[0])
-```
