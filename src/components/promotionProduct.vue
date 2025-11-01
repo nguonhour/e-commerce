@@ -21,11 +21,5 @@ export default{
              bgbtn: { type: String, default: "#24AD37"},
              bgpromotionColor: { type: String, default: "#F0E9D7"},
         },
-    emits: ['shop-click'],
-    methods: {
-        handleShopClick() {
-            this.$emit('shop-click');
-        }
-    }
 };
 </script>
