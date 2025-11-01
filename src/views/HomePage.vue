@@ -101,7 +101,6 @@ const promotions = ref([
     },
 ]);
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const buttonpromotionalert = (promotion: any) => {
     alert("Let's shop: " + promotion.title);
 };
@@ -139,7 +138,7 @@ const buttonpromotionalert = (promotion: any) => {
                     :productImage="promotion.image"
                     :buttonText="promotion.buttonText"
                     :bgpromotionColor="promotion.bgcolors"
-                    @shop-click="buttonpromotionalert(promotion)"
+                    @click="buttonpromotionalert(promotion)"
                 />
             </div>
             
