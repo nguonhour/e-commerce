@@ -25,6 +25,7 @@ interface Promotion {
 interface Category {
     id?: number;
     name: string;
+    url: string;
     productCount: number;
     color: string;
     image: string;
@@ -35,6 +36,7 @@ interface Promotionn {
     title: string;
     color: string;
     image: string;
+    url: string;
     buttonText: string;
     buttonColor: string;
 }
@@ -129,13 +131,28 @@ const categories = ref<Category[]>([]);
 const promotionns = ref<Promotionn[]>([]);
 
 
-const buttonpromotionalert = (promotion: Promotion) => {
+const buttonpromotionalert = (promotion: Promotion | Promotionn) => {
     alert("Let's shop: " + promotion.title);
+};
+
+const API_BASE_URL = 'http://localhost:3000';
+const getImageUrl = (imagePath: string | undefined) => {
+
+    if (!imagePath) {
+        return 'https://via.placeholder.com/300x200?text=No+Image';
+    }
+
+    if (imagePath && imagePath.startsWith('http')) {
+        return imagePath;
+    }
+    return `${API_BASE_URL}${imagePath.startsWith('/') ? '' : '/'}${imagePath}`;
+
 };
 
 const fetchProducts = async () => {
     try {
         const response = await axios.get<Category[]>('http://localhost:3000/api/categories');
+        console.log('Categories API Response:', response.data);
         categories.value = response.data;
     } catch (error) {
         console.error('Error fetching products:', error);
@@ -145,6 +162,7 @@ const fetchProducts = async () => {
 const fetchPromotions = async () => {
     try {
         const response = await axios.get<Promotionn[]>('http://localhost:3000/api/promotions');
+        console.log('Promotions API Response:', response.data);
         promotionns.value = response.data;
     } catch (error) {
         console.error('Error fetching promotions:', error);
@@ -163,6 +181,9 @@ onMounted(() => {
             <h1 class="text-3xl font-bold text-gray-800 mb-6 text-center">
                 Our Featured Products
             </h1>
+            <h2 class="pt-8 pb-4 text-xl font-semibold text-cyan-600 text-center">
+                local variables to represent our components
+            </h2>
             <div class="grid grid-cols-8 gap-6">
                 <ProductCard 
                     v-for="product in products" 
@@ -173,26 +194,33 @@ onMounted(() => {
                     :productImage="product.image"
                 />
             </div>
+
+            <h2 class="pt-8 pb-4 text-xl font-semibold text-cyan-600 text-center">
+                Using axios in the methods: {} to load data for your components
+            </h2>
+
             <div>
-                <h3 class="px-4 py-2 transition">
-                    <!-- Load More Products -->
-                </h3>
-                <div class="grid grid-cols-4 gap-6">
+                
+                <div class="grid grid-cols-5 gap-6">
                     <ProductCard 
                         v-for="category in categories" 
                         :key="category.id || category.name" 
                         :productName="category.name"
                         :productItem="category.productCount"
                         :productItemcolorbackground="category.color"
-                        :productImage="category.image"
+                        :productImage="getImageUrl(category.image)"
                     />
                 </div>
             </div>
         </section>
         
         <section class="w-full mx-auto p-6">
-            <h2 class="text-2xl font-semibold text-gray-800 mb-6 text-center space-y-3">
+            <h1 class="text-2xl pb-8 font-semibold text-gray-800 mb-6 text-center space-y-3">
                 Special Promotions Just For You
+            </h1>
+
+            <h2 class="pt-8 pb-4 text-xl font-semibold text-cyan-600 text-center">
+                local variables to represent our components
             </h2>
 
             <div class="grid grid-cols-3 gap-6">
@@ -204,20 +232,25 @@ onMounted(() => {
                     :buttonText="promotion.buttonText"
                     :bgpromotionColor="promotion.color"
                     :bgbtn="promotion.buttonColor"
-                    @shop-click="buttonpromotionalert(promotion)"
+                    @shop-click="() => buttonpromotionalert(promotion)"
                 />
             </div>
+
+            <h2 class="pt-8 pb-4 text-xl font-semibold text-cyan-600 text-center">
+                Using axios in the methods: {} to load data for your components
+            </h2>
+
             <div class="mt-6">
                 <div class="px-4 py-2 transition grid grid-cols-4 gap-6">
                     <PromotionProduct 
                     v-for="promotion in promotionns" 
                     :key="promotion.id || promotion.title" 
                     :productTitle="promotion.title"
-                    :productImage="promotion.image"
+                    :productImage="getImageUrl(promotion.image)"
                     :buttonText="promotion.buttonText"
                     :bgpromotionColor="promotion.color"
                     :bgbtn="promotion.buttonColor"
-                    @shop-click="buttonpromotionalert(promotion)"
+                    @shop-click="() => buttonpromotionalert(promotion)"
                 />
                 </div>
             </div>
