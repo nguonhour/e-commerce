@@ -1,8 +1,9 @@
 <template>
-    <div class="w-40 h-48 rounded-2xl shadow-md flex flex-col items-center justify-center hover:scale-105 transition cursor-pointer">
+    <div class="w-40 h-48 rounded-2xl shadow-md flex flex-col items-center justify-center hover:scale-105 transition cursor-pointer"
+        :style="{ backgroundColor: productItemcolorbackground }">
         <img :src="productImage" alt="product" class="w-20 h-20 object-contain mb-2" />
         <h2 class="text-gray-800 font-semibold text-md">{{ productName }}</h2>
-        <p class="text-gray-500 text-sm"> {{ productItem }} </p>
+        <p class="text-sm" :style="{ color: productItemcolor}"> {{ productItem }} </p>
     </div>
 </template>
 
@@ -14,6 +15,8 @@ export default {
     productImage: String,
     productName: String,
     productItem: Number,
+    productItemcolor: { type: String, default: "#1C1C1C"},
+    productItemcolorbackground: { type: String, default: "#F0E9D7"},
   },
   
 };
