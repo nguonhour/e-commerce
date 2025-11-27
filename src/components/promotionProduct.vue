@@ -3,7 +3,7 @@
         :style="{ backgroundColor: bgpromotionColor }">
         <div>
             <h2 class="text-2xl font-semibold text-gray-800 mb-4 leading-tight">{{ productTitle }}</h2>
-            <shopButton :style="{backgroundColor: bgbtn}">{{ buttonText }}</shopButton>
+            <shopButton :style="{backgroundColor: bgbtn}" @click="$emit('shop-click')">{{ buttonText ?? 'Shop Now' }}</shopButton>
         </div>
         <img :src="productImage" alt="Promotion Product" class="w-40 h-40 object-contain"/>
     </div>
