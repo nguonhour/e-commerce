@@ -3,7 +3,7 @@
         :style="{ backgroundColor: productItemcolorbackground }">
         <img :src="productImage" alt="product" class="w-20 h-20 object-contain mb-2" />
         <h2 class="text-gray-800 font-semibold text-md">{{ productName }}</h2>
-        <p class="text-sm" :style="{ color: productItemcolor}"> {{ productItem }} </p>
+        <p class="text-sm text-gray-400" :style="{ color: productItemcolor}"> {{ productItem }} items</p>
     </div>
 </template>
 
